@@ -1,0 +1,125 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+:root {
+    font-size: 62.5%;
+    --body-bg: hsl(0, 0%, 8%);
+}
+
+html {
+    color-scheme: dark light; /* Possibilita que um elemento possa indicar em qual esquema de cores é mais amigável de ser renderizado */
+
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: system-ui;
+    line-height: 1.5;
+    color: white;
+    background: var(--body-bg);
+}
+
+.wrapper {
+    max-width: 50rem;
+    margin-inline: auto; /* Define as margens de início e fim de um elemento */
+    padding-inline: 1rem;
+}
+
+.site-title {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.25rem;
+}
+
+section {
+    padding-block: 5rem;
+}
+
+.diagonal {
+    --skew-angle: -2deg;
+    --diagonal-background: linear-gradient(
+        45deg,
+        #12c2e9,
+        #c471ed,
+        #f64f59
+    );
+
+    position: relative;
+    isolation: isolate; /* Determina se um elemento deve criar um novo contexto de empilhamento (Stacking context)*/
+}
+
+.diagonal::after {
+    content: '';    
+    background: var(--diagonal-background);
+
+    position: absolute;
+    z-index: -1;
+
+    inset: 0;/* Shorthand que corresponde às propriedades top, right, bottom e/ou left*/
+    transform: skewY(var(--skew-angle));
+    
+}
+
+.spikes {
+    --spikes-width: 30px;
+    --spikes-height: 10px;
+
+    position: relative;
+    color: black;
+    background: linear-gradient(
+        to right,
+        #fdc830,
+        #f37335
+    );
+}
+
+.spikes::before,
+.spikes::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: var(--spikes-height);
+    background: var(--body-bg);
+    -webkit-mask-image: url('../images/svg/triangle.svg');
+    -webkit-mask-size: var(--spikes-width) var(--spikes-height);
+    /*-webkit-mask-repeat: repeat-x;*/
+    mask-image: url('../images/svg/triangle.svg');
+    mask-size: var(--spikes-width) var(--spikes-height);
+    /*mask-repeat: repeat-x;*/
+}
+
+.spikes::before {
+    top: 0;
+}
+
+.spikes::after {
+    bottom: 0;
+    transform: rotate(.5turn); /* 1turn == 360deg */
+}
+
+.wavy {
+    background: linear-gradient(
+        to right,
+        #00f260,
+        #0575e6
+    );
+
+    --mask:
+        radial-gradient(4.47rem at 50% 6.00rem,#000 99%,#0000 101%) calc(50% - 4rem) 0/8rem 51% repeat-x,
+        radial-gradient(4.47rem at 50% -4rem,#0000 99%,#000 101%) 50% 2rem/8rem calc(51% - 2rem) repeat-x,
+        radial-gradient(4.47rem at 50% calc(100% - 6.00rem),#000 99%,#0000 101%) calc(50% - 4rem) 100%/8rem 51% repeat-x,
+        radial-gradient(4.47rem at 50% calc(100% + 4.00rem),#0000 99%,#000 101%) 50% calc(100% - 2rem)/8rem calc(51% - 2rem) repeat-x;
+        -webkit-mask: var(--mask);
+    mask: var(--mask);
+}
